@@ -3,13 +3,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
 
+const nodeModules = path.join(__dirname, '/node_modules')
+
 module.exports = {
   devtool: 'cheap-module-source-map',
-  entry: './src/SelectFrom/Client.purs',
+  entry: './src/Main.js',
   module: {
     loaders: [{
       test: /\.purs$/,
-      loader: 'purs-loader',
+      loader: 'purs',
       exclude: /node_modules/,
       query: {
         bundle: true,
@@ -62,20 +64,20 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'build'),
     publicPath: '/',
-    filename: 'js/SelectFrom.js'
+    filename: 'js/Todo.js'
   },
   plugins: [
     new webpack.DefinePlugin({'process.env.NODE_ENV': '"production"'}),
-    new HtmlWebpackPlugin({title: 'SELECT FROM'}),
-    new ExtractTextPlugin('css/SelectFrom.css', {allChunks: true}),
+    new HtmlWebpackPlugin({title: 'TodoMVC'}),
+    new ExtractTextPlugin('css/Todo.css', {allChunks: true}),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin()
   ],
   resolve: {
-    root: ['./node_modules'].concat(process.env.NODE_PATH.split(':')),
+    root: [nodeModules].concat(process.env.NODE_PATH.split(':')),
     extensions: ['', '.js', '.json', '.purs']
   },
   resolveLoader: {
-    root: ['./node_modules'].concat(process.env.NODE_PATH.split(':'))
+    root: [nodeModules].concat(process.env.NODE_PATH.split(':'))
   }
 }

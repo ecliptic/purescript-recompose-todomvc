@@ -1,7 +1,7 @@
 {
-  "name": "selectfrom",
+  "name": "purescript-manifold-todomvc",
   "version": "1.0.0",
-  "description": "Freelance developer profiles",
+  "description": "TodoMVC: PureScript + React + Manifold",
   "scripts": {
     "build": "bin/build",
     "dev": "npm run build dev",
@@ -11,18 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:bkonkle/selectfrom.git"
+    "url": "git@github.com:bkonkle/purescript-manifold-todomvc.git"
   },
   "author": "Brandon Konkle <brandon@konkle.us>",
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.5",
-    "flexboxgrid": "^6.3.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
-    "react-fa": "^4.1.2",
-    "react-flexbox-grid": "^0.10.2",
     "ygor": "^3.0.0"
   },
   "standard": {
@@ -58,7 +54,6 @@
     "sass-loader": "^4.0.0",
     "standard": "^7.1.2",
     "style-loader": "^0.13.1",
-    "tap-spec": "^4.1.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1"

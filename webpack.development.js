@@ -6,7 +6,7 @@ const nodeModules = path.join(__dirname, '/node_modules')
 
 module.exports = {
   devtool: 'eval',
-  entry: './src/SelectFrom/Init.js',
+  entry: './src/Main.js',
   module: {
     loaders: [{
       test: /\.purs$/,
@@ -61,11 +61,11 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'build'),
     publicPath: '/',
-    filename: 'js/SelectFrom.js'
+    filename: 'js/Todo.js'
   },
   plugins: [
     new webpack.DefinePlugin({'process.env.NODE_ENV': '"development"'}),
-    new HtmlWebpackPlugin({title: 'SELECT FROM'}),
+    new HtmlWebpackPlugin({title: 'TodoMVC'}),
     new webpack.NoErrorsPlugin()
   ],
   resolve: {

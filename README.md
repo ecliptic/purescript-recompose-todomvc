@@ -1,3 +1,1 @@
-# SELECT ____ FROM ____;
-
-Freelance developer profiles
+# TodoMVC: PureScript + React + Manifold
