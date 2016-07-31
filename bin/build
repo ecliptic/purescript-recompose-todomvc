@@ -1,0 +1,86 @@
+#!/usr/bin/env babel-node
+import {exec} from 'child-process-promise'
+import path from 'path'
+import ygor from 'ygor'
+
+const PROJECT_DIR = path.dirname(__dirname)
+const SRC = `${PROJECT_DIR}/src`
+const DEV_SERVER = 'Todo.Server.Development'
+
+const nodePath = extend => `NODE_PATH=${extend}:${process.env.NODE_PATH || ''}`
+
+function sleep (ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+function babel (options = '') {
+  return `${nodePath(SRC)} babel ${SRC} --source-maps --out-dir ${SRC} ${options}`
+}
+
+function pulp (cmd) {
+  return `${nodePath(SRC)} pulp ${cmd}`
+}
+
+/*
+ * Tasks
+ */
+
+function clean () {
+  ygor.shell('rm -r build output 2> /dev/null || true')
+}
+
+function lint () {
+  return exec('standard src').then(result => console.log(result.stdout))
+}
+
+async function client () {
+  await javascript()
+  ygor.shell(`${nodePath(SRC)} webpack --config=webpack.${process.env.NODE_ENV}.js --color=always --progress`)
+}
+
+async function dev () {
+  javascriptWatch()
+  await sleep(1000)  // Give the watch command time to start up
+  ygor.shell(pulp(`run --main ${DEV_SERVER}`))
+}
+
+async function javascript () {
+  await lint()
+  ygor.shell(babel())
+}
+
+async function javascriptWatch () {
+  await lint()
+  return exec(babel('-w')).then(result => console.log(result.stdout))
+}
+
+async function purescript () {
+  await javascript()
+  ygor.shell(pulp('build -- --censor-codes=UnusedFFIImplementations'))
+}
+
+function test () {
+  ygor.shell(pulp('test -- --censor-codes=UnusedFFIImplementations'))
+}
+
+// Intended to be run with "dev" in another terminal window
+function watch () {
+  ygor.shell(`${nodePath(SRC)} pscid --test --censor-codes=UnusedFFIImplementations`)
+}
+
+/*
+ * Interface
+ */
+
+ygor
+  .task('default', client)
+  .task('clean', clean)
+  .task('client', client)
+  .task('dev', dev)
+  .task('javascript', () => ygor()
+    .task('default', javascript)
+    .task('watch', javascriptWatch)
+  )
+  .task('purescript', purescript)
+  .task('test', test)
+  .task('watch', watch)
