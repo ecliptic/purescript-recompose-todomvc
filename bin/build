@@ -59,6 +59,14 @@ async function purescript () {
   ygor.shell(pulp('build -- --censor-codes=UnusedFFIImplementations'))
 }
 
+function purescriptJson () {
+  ygor.shell(pulp('build --no-psa --json-errors -- --censor-codes=UnusedFFIImplementations'))
+}
+
+function purescriptRepl () {
+  ygor.shell(pulp('psci'))
+}
+
 function test () {
   ygor.shell(pulp('test -- --censor-codes=UnusedFFIImplementations'))
 }
@@ -81,6 +89,9 @@ ygor
     .task('default', javascript)
     .task('watch', javascriptWatch)
   )
-  .task('purescript', purescript)
+  .task('purescript', () => ygor()
+    .task('default', purescript)
+    .task('json', purescriptJson)
+    .task('repl', purescriptRepl))
   .task('test', test)
   .task('watch', watch)
