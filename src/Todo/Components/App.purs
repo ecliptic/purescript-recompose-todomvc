@@ -1,5 +1,17 @@
-module Todo.Components.App (view) where
+module Todo.Components.App (component) where
 
-import React (ReactClass)
+import Prelude
+import React (ReactElement, ReactClass, createElement, createClassStateless)
 
-foreign import view :: forall props. ReactClass props
+foreign import component :: forall props. ReactClass props
+
+mapProps :: forall oldProps newProps.
+  (oldProps -> newProps) ->
+  ReactClass newProps ->
+  (newProps -> ReactElement) ->
+  ReactClass newProps
+mapProps propMapper component = createClassStateless $
+  \props -> createElement component (propMapper props)
+
+-- view :: forall props. ReactClass props
+-- view =

@@ -20,7 +20,7 @@ export default class App extends Component {
     return (
       <div>
         <section className="todoapp">
-          <NewTodo />
+          <NewTodo addTodo={todo => console.log('new todo', todo)} />
           <Todos />
           <Controls />
         </section>
@@ -30,4 +30,4 @@ export default class App extends Component {
   }
 }
 
-export const view = App
+export const component = App
