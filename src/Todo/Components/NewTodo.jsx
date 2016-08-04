@@ -9,8 +9,8 @@ export default function NewTodo ({task}) {
         autoFocus
         value={task}
         name="newTodo"
-        onInput={(...args) => console.log('newTodo onInput', args)}
-        onEnter={(...args) => console.log('newTodo onEnter', args)}>
+        onInput={(...args) => console.log('newTodo onInput', args)}>
+        {/*onEnter={(...args) => console.log('newTodo onEnter', args)}>*/}
       </input>
     </header>
   )
