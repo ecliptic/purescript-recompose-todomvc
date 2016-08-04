@@ -1,4 +1,11 @@
-module Todo.State.Store where
+module Todo.State.Store
+  (Action
+  , State
+  , TodoStore
+  , initialState
+  , update
+  , createStore
+  ) where
 
 import Prelude
 import Control.Monad.Eff (Eff)
@@ -9,6 +16,8 @@ data Action = TodosAction (Todos.Action)
 
 newtype State = State
   { todos :: Todos.State }
+
+type TodoStore = forall eff. Store Action eff State
 
 initialState :: State
 initialState = State { todos: Todos.initialState }

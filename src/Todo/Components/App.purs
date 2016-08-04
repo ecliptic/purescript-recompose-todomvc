@@ -1,17 +1,23 @@
-module Todo.Components.App (component) where
+module Todo.Components.App (view) where
 
 import Prelude
-import React (ReactElement, ReactClass, createElement, createClassStateless)
+import Control.Monad.Eff (Eff)
+import Control.Monad.Eff.Console (CONSOLE, log)
+import React (ReactClass, createClassStateless)
+import Todo.State.Store (TodoStore)
+import Todo.Utils.Recompose (mapProps)
 
-foreign import component :: forall props. ReactClass props
+foreign import app :: forall props. ReactClass props
 
-mapProps :: forall oldProps newProps.
-  (oldProps -> newProps) ->
-  ReactClass newProps ->
-  (newProps -> ReactElement) ->
-  ReactClass newProps
-mapProps propMapper component = createClassStateless $
-  \props -> createElement component (propMapper props)
+type InputProps = { store :: TodoStore }
 
--- view :: forall props. ReactClass props
--- view =
+type OutputProps = forall eff.
+  { store :: TodoStore
+  , addTodo :: Eff ( console :: CONSOLE | eff) Unit }
+
+toAppProps :: InputProps -> OutputProps
+toAppProps props = { addTodo: addTodo, store: props.store }
+  where addTodo = do log "new todo!"
+
+view :: ReactClass InputProps
+view = createClassStateless $ mapProps toAppProps app
