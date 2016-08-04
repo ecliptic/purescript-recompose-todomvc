@@ -19,6 +19,8 @@
     "classnames": "^2.2.5",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
+    "todomvc-app-css": "^2.0.6",
+    "todomvc-common": "^1.0.2",
     "ygor": "^3.0.0"
   },
   "standard": {
@@ -52,7 +54,7 @@
     "purs-loader": "^2.0.0-rc.1",
     "resolve-url-loader": "^1.6.0",
     "sass-loader": "^4.0.0",
-    "standard": "^7.1.2",
+    "standard": "^8.0.0-beta.3",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",

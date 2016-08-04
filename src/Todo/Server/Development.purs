@@ -15,8 +15,11 @@ foreign import data CONFIG :: !
 foreign import data COMPILER :: !
 foreign import data Compiler :: *
 
+-- Middleware to log requests
 foreign import morgan :: forall eff.
   String -> Fn3 Request Response (ExpressM eff Unit) (ExpressM eff Unit)
+
+-- Middleware to integrate with Webpack
 foreign import devMiddleware :: forall eff.
   Fn2 Compiler { publicPath :: String
   , stats :: { colors :: Boolean, chunks :: Boolean }
@@ -30,12 +33,14 @@ foreign import getCompiler :: forall eff.
 foreign import getIndexHtml :: forall eff.
   Eff (compiler :: COMPILER | eff) String
 
+-- | A handler that always returns the index, useful for single-page apps
 indexHandler :: forall eff.
   HandlerM (compiler :: COMPILER, express :: EXPRESS | eff) Unit
 indexHandler = do
   indexHtml <- liftEff getIndexHtml
   send indexHtml
 
+-- | Return a configured Express app using the public path and compiler given
 createApp :: forall eff. String -> Compiler -> App (compiler :: COMPILER | eff)
 createApp publicPath compiler = do
 
@@ -48,6 +53,7 @@ createApp publicPath compiler = do
 
   get "*" indexHandler
 
+-- | Run the development server
 main :: forall eff.
   ExpressM (console :: CONSOLE, config :: CONFIG, compiler :: COMPILER | eff) Server
 main = do

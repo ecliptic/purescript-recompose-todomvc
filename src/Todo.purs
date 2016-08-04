@@ -18,7 +18,7 @@ import Partial.Unsafe (unsafePartial)
 import React (ReactComponent)
 import React (createElement) as React
 import ReactDOM (render)
-import Todo.Components.Layout.App (view)
+import Todo.Components.App (view)
 import Todo.State.Store (createStore)
 import Signal.Channel (CHANNEL)
 

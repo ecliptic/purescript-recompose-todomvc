@@ -1,4 +1,4 @@
-module Todo.Components.Layout.App (view) where
+module Todo.Components.App (view) where
 
 import React (ReactClass)
 
