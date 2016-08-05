@@ -1,4 +1,4 @@
-module Todo.Components.App (view) where
+module Todo.Components.App (ViewProps(..), view) where
 
 import Prelude
 import Control.Monad.Eff (Eff)
@@ -7,17 +7,16 @@ import React (ReactClass, createClassStateless)
 import Todo.State.Store (TodoStore)
 import Todo.Utils.Recompose (mapProps)
 
-foreign import app :: forall props. ReactClass props
+foreign import component :: ReactClass ComponentProps
 
-type InputProps = { store :: TodoStore }
+newtype ViewProps = ViewProps { store :: TodoStore }
+newtype ComponentProps = ComponentProps
+  { addTodo :: forall eff. Eff ( console :: CONSOLE | eff) Unit
+  , store :: TodoStore }
 
-type OutputProps = forall eff.
-  { store :: TodoStore
-  , addTodo :: Eff ( console :: CONSOLE | eff) Unit }
+toAppProps :: ViewProps -> ComponentProps
+toAppProps (ViewProps props) = ComponentProps
+  { addTodo: do log "new todo!", store: props.store }
 
-toAppProps :: InputProps -> OutputProps
-toAppProps props = { addTodo: addTodo, store: props.store }
-  where addTodo = do log "new todo!"
-
-view :: ReactClass InputProps
-view = createClassStateless $ mapProps toAppProps app
+view :: ReactClass ViewProps
+view = createClassStateless $ mapProps toAppProps component

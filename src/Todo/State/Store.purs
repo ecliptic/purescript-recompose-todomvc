@@ -1,6 +1,7 @@
 module Todo.State.Store
-  (Action
+  ( Action
   , State
+  , TodoEffects
   , TodoStore
   , initialState
   , update
@@ -9,15 +10,16 @@ module Todo.State.Store
 
 import Prelude
 import Control.Monad.Eff (Eff)
+import DOM (DOM)
 import Manifold (Store, StoreEffects, runStore)
 import Todo.State.Todos (Action, State, initialState, update) as Todos
 
 data Action = TodosAction (Todos.Action)
 
-newtype State = State
-  { todos :: Todos.State }
+newtype State = State { todos :: Todos.State }
 
-type TodoStore = forall eff. Store Action eff State
+type TodoEffects = StoreEffects (dom :: DOM)
+type TodoStore = Store Action TodoEffects State
 
 initialState :: State
 initialState = State { todos: Todos.initialState }
@@ -26,5 +28,5 @@ update :: Action -> State -> State
 update (TodosAction action) (State state) = State $
   state { todos = Todos.update action state.todos }
 
-createStore :: forall eff. Eff (StoreEffects eff) (Store Action eff State)
+createStore :: Eff TodoEffects (Store Action TodoEffects State)
 createStore = runStore update initialState

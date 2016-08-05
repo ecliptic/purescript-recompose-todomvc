@@ -16,7 +16,8 @@ export default class App extends Component {
     return {store: this.props.store}
   }
 
-  render ({addTodo}) {
+  render () {
+    const {addTodo} = this.props
     return (
       <div>
         <section className="todoapp">
@@ -30,4 +31,4 @@ export default class App extends Component {
   }
 }
 
-export const app = App
+export const component = App

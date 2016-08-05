@@ -2,8 +2,6 @@ module Todo (init) where
 
 import Prelude
 import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Exception (EXCEPTION)
-import DOM (DOM)
 import DOM.HTML (window)
 import DOM.HTML.Document (body)
 import DOM.HTML.Types (htmlElementToNode, htmlDocumentToDocument)
@@ -18,11 +16,10 @@ import Partial.Unsafe (unsafePartial)
 import React (ReactComponent)
 import React (createElement) as React
 import ReactDOM (render)
-import Todo.Components.App (view)
-import Todo.State.Store (createStore)
-import Signal.Channel (CHANNEL)
+import Todo.Components.App (ViewProps(ViewProps), view)
+import Todo.State.Store (TodoEffects, createStore)
 
-init :: forall eff. Eff ( channel :: CHANNEL, dom :: DOM, err :: EXCEPTION | eff ) (Maybe ReactComponent)
+init :: Eff TodoEffects (Maybe ReactComponent)
 init = do
   htmlDocument <- window >>= document
   htmlBody <- map (unsafePartial (fromJust <<< toMaybe)) $ body htmlDocument
@@ -37,5 +34,8 @@ init = do
   -- Kick off the store
   store <- createStore
 
+  let props = ViewProps { store: store }
+      element = React.createElement view props []
+
   -- Render the app to the container
-  render (React.createElement view { store: store } []) container
+  render element container
