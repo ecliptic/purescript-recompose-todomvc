@@ -1,23 +1,27 @@
 module Todo.Components.NewTodo
-  ( ViewProps(..)
-  , ComponentProps(..)
+  ( ViewProps
+  , ComponentProps
   , newTodo ) where
 
 import Prelude
 import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log)
 import React (ReactClass)
 import React.Recompose (withHandlers, getContext)
-import Todo.State.Store (storePropTypes)
+import Signal.Channel (CHANNEL, send)
+import Todo.State.Store (Action(TodosAction), TodoStore, storePropTypes)
 import Todo.State.Todos (Action(Add))
 
-foreign import component :: forall eff. ReactClass (ComponentProps eff)
+foreign import component :: ReactClass ComponentProps
 
-type ComponentProps eff = { addTodo :: Eff (console :: CONSOLE | eff) Unit }
+type ComponentProps = { addTodo :: String }
+type HandlerProps = { addTodo :: String, store :: TodoStore }
 type ViewProps = {}
 
+addTodo :: forall eff. HandlerProps -> String ->
+  Eff ( channel :: CHANNEL | eff ) Unit
+addTodo props value = send props.store.actionChannel $ [TodosAction (Add value)]
+
 newTodo :: ReactClass ViewProps
-newTodo = handlers $ component
-  where -- context = getContext storePropTypes
-        addTodo props value = do log $ "Add: " <> value
+newTodo = context <<< handlers $ component
+  where context = getContext storePropTypes
         handlers = withHandlers { addTodo }

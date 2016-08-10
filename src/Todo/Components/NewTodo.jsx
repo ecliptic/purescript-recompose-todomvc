@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function NewTodo ({addTodo}) {
-  console.log('addTodo ->', addTodo)
   return (
     <header className="header">
       <h1>todos</h1>

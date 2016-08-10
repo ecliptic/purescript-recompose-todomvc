@@ -1,5 +1,5 @@
 module Todo.State.Store
-  ( Action
+  ( Action(..)
   , State
   , TodoEffects
   , TodoStore
@@ -16,7 +16,7 @@ import DOM (DOM)
 import Manifold (Store, StoreEffects, runStore)
 import Todo.State.Todos (Action, State, initialState, update) as Todos
 
-data Action = TodosAction (Todos.Action)
+data Action = TodosAction Todos.Action
 
 newtype State = State { todos :: Todos.State }
 
