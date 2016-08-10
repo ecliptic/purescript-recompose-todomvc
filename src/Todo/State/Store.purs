@@ -3,6 +3,7 @@ module Todo.State.Store
   , State
   , TodoEffects
   , TodoStore
+  , EventHandler
   , ReactPropType
   , storePropTypes
   , initialState
@@ -14,6 +15,7 @@ import Prelude
 import Control.Monad.Eff (Eff)
 import DOM (DOM)
 import Manifold (Store, StoreEffects, runStore)
+import Signal.Channel (CHANNEL)
 import Todo.State.Todos (Action, State, initialState, update) as Todos
 
 data Action = TodosAction Todos.Action
@@ -21,7 +23,11 @@ data Action = TodosAction Todos.Action
 newtype State = State { todos :: Todos.State }
 
 type TodoEffects = StoreEffects (dom :: DOM)
+
 type TodoStore = Store Action TodoEffects State
+
+type EventHandler value = forall props eff. { store :: TodoStore | props } ->
+  value -> Eff ( channel :: CHANNEL | eff ) Unit
 
 foreign import data ReactPropType :: *
 foreign import storePropType :: ReactPropType
