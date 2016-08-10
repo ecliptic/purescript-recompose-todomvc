@@ -28,7 +28,9 @@
     "purescript-react-dom": "^1.0.0",
     "purescript-arrays": "^1.1.0",
     "purescript-foreign": "^1.0.0",
-    "purescript-node-path": "^1.0.0"
+    "purescript-node-path": "^1.0.0",
+    "purescript-manifold": "*",
+    "purescript-recompose": "*"
   },
   "devDependencies": {
     "purescript-debug": "^1.0.0",

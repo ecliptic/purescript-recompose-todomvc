@@ -16,7 +16,7 @@ import Partial.Unsafe (unsafePartial)
 import React (ReactComponent)
 import React (createElement) as React
 import ReactDOM (render)
-import Todo.Components.App (ViewProps(ViewProps), view)
+import Todo.Components.App (app)
 import Todo.State.Store (TodoEffects, createStore)
 
 init :: Eff TodoEffects (Maybe ReactComponent)
@@ -34,8 +34,8 @@ init = do
   -- Kick off the store
   store <- createStore
 
-  let props = ViewProps { store: store }
-      element = React.createElement view props []
+  -- Create an element instance from the app component
+  let element = React.createElement app { store: store } []
 
-  -- Render the app to the container
+  -- Render the element to the container
   render element container

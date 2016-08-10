@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function NewTodo ({addTodo}) {
+  console.log('addTodo ->', addTodo)
   return (
     <header className="header">
       <h1>todos</h1>
@@ -9,8 +10,9 @@ export default function NewTodo ({addTodo}) {
         autoFocus
         name="newTodo"
         onKeyPress={event => (event.key === 'Enter') && addTodo(event.target.value)}>
-        {/* onEnter={(...args) => console.log('newTodo onEnter', args)}> */}
       </input>
     </header>
   )
 }
+
+export const component = NewTodo

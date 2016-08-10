@@ -3,6 +3,8 @@ module Todo.State.Store
   , State
   , TodoEffects
   , TodoStore
+  , ReactPropType
+  , storePropTypes
   , initialState
   , update
   , createStore
@@ -20,6 +22,12 @@ newtype State = State { todos :: Todos.State }
 
 type TodoEffects = StoreEffects (dom :: DOM)
 type TodoStore = Store Action TodoEffects State
+
+foreign import data ReactPropType :: *
+foreign import storePropType :: ReactPropType
+
+storePropTypes :: { store :: ReactPropType }
+storePropTypes = { store: storePropType }
 
 initialState :: State
 initialState = State { todos: Todos.initialState }
