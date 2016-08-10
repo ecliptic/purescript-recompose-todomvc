@@ -13,12 +13,12 @@ import Todo.State.Todos (Action(Add))
 
 foreign import component :: ReactClass ComponentProps
 
-type ComponentProps = { addTodo :: String }
-type HandlerProps = { addTodo :: String, store :: TodoStore }
+type EventHandler value = HandlerProps -> value -> Eff ( channel :: CHANNEL | eff ) Unit
+type ComponentProps = { addTodo :: EventHandler }
+type HandlerProps = { addTodo :: EventHandler, store :: TodoStore }
 type ViewProps = {}
 
-addTodo :: forall eff. HandlerProps -> String ->
-  Eff ( channel :: CHANNEL | eff ) Unit
+addTodo :: EventHandler String
 addTodo props value = send props.store.actionChannel $ [TodosAction (Add value)]
 
 newTodo :: ReactClass ViewProps
