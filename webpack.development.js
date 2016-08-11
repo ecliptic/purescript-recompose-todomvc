@@ -24,14 +24,14 @@ module.exports = {
       test: /\.css$/,
       loaders: [
         'style?singleton',
-        'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+        'css',
         'resolve-url?sourceMap'
       ]
     }, {
       test: /\.scss$/,
       loaders: [
         'style?singleton',
-        'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+        'css?sourceMap',
         'resolve-url?sourceMap',
         'sass?sourceMap'
       ]
@@ -39,7 +39,7 @@ module.exports = {
       test: /\.sass$/,
       loaders: [
         'style?singleton',
-        'css?sourceMap&modules&importLoaders=2&localIdentName=[name]__[local]___[hash:base64:5]',
+        'css?sourceMap',
         'resolve-url?sourceMap',
         'sass?sourceMap&indentedSyntax=true'
       ]

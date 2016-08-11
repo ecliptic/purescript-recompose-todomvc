@@ -24,7 +24,7 @@ module.exports = {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract(
         'style', [
-          'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'css',
           'resolve-url?sourceMap'
         ]
       )
@@ -32,7 +32,7 @@ module.exports = {
       test: /\.scss$/,
       loader: ExtractTextPlugin.extract(
         'style', [
-          'css?sourceMap&modules&importLoaders=2&localIdentName=[name]__[local]___[hash:base64:5]',
+          'css?sourceMap',
           'resolve-url?sourceMap',
           'sass?sourceMap'
         ]
@@ -41,7 +41,7 @@ module.exports = {
       test: /\.sass$/,
       loader: ExtractTextPlugin.extract(
         'style', [
-          'css?sourceMap&modules&importLoaders=2&localIdentName=[name]__[local]___[hash:base64:5]',
+          'css?sourceMap',
           'resolve-url?sourceMap',
           'sass?sourceMap&indentedSyntax=true'
         ]
