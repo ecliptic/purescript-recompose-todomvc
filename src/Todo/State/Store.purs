@@ -3,9 +3,11 @@ module Todo.State.Store
   , State
   , TodoEffects
   , TodoStore
-  , EventHandler
   , ReactPropType
+  , EventHandler
   , storePropTypes
+  , storeContext
+  , withStoreContext
   , initialState
   , update
   , createStore
@@ -15,6 +17,7 @@ import Prelude
 import Control.Monad.Eff (Eff)
 import DOM (DOM)
 import Manifold (Store, StoreEffects, runStore)
+import React.Recompose (withContext, getContext, HigherOrderComponent)
 import Signal.Channel (CHANNEL)
 import Todo.State.Todos (Action, State, initialState, update) as Todos
 
@@ -34,6 +37,13 @@ foreign import storePropType :: ReactPropType
 
 storePropTypes :: { store :: ReactPropType }
 storePropTypes = { store: storePropType }
+
+storeContext :: forall props ownerProps. HigherOrderComponent props ownerProps
+storeContext = getContext storePropTypes
+
+withStoreContext :: forall props. HigherOrderComponent
+  { store :: TodoStore | props } { store :: TodoStore | props }
+withStoreContext = withContext storePropTypes \p -> { store: p.store }
 
 initialState :: State
 initialState = State { todos: Todos.initialState }

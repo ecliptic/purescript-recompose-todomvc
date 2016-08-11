@@ -2,12 +2,11 @@ module Todo.Components.App (app) where
 
 import Prelude
 import React (ReactClass)
-import React.Recompose (withContext, mapProps)
-import Todo.State.Store (TodoStore, storePropTypes)
+import React.Recompose (mapProps)
+import Todo.State.Store (TodoStore, withStoreContext)
 
 foreign import component :: ReactClass {}
 
 app :: ReactClass { store :: TodoStore }
-app = context <<< props $ component
-  where props = mapProps \_ -> {}
-        context = withContext storePropTypes \p -> { store: p.store }
+app = withStoreContext <<< dropStoreProp $ component
+  where dropStoreProp = mapProps \_ -> {}
