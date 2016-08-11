@@ -37,13 +37,10 @@ bower_components
 .pulp-cache
 output/
 build/
+dist/
 
 # PureScript REPL
 /.psci*
 
 # PureScript IDE
 /.psc-ide*
-
-# Transpiled FFI modules
-/src/**/*.js
-/src/**/*.map

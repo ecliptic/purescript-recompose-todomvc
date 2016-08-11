@@ -13,5 +13,3 @@ export default function NewTodo ({addTodo}) {
     </header>
   )
 }
-
-export const component = NewTodo

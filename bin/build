@@ -5,20 +5,22 @@ import ygor from 'ygor'
 
 const PROJECT_DIR = path.dirname(__dirname)
 const SRC = `${PROJECT_DIR}/src`
+const LIB = `${PROJECT_DIR}/lib`
+const BUILD = `${PROJECT_DIR}/build`
 const DEV_SERVER = 'Todo.Server.Development'
 
-const nodePath = extend => `NODE_PATH=${extend}:${process.env.NODE_PATH || ''}`
+const nodePath = prepend => `NODE_PATH=${prepend.join(':')}:${process.env.NODE_PATH || ''}`
 
 function sleep (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 function babel (options = '') {
-  return `${nodePath(SRC)} babel ${SRC} --source-maps --extensions .es,.jsx --out-dir ${SRC} ${options}`
+  return `babel ${LIB} --source-maps --out-dir ${BUILD} ${options}`
 }
 
 function pulp (cmd) {
-  return `${nodePath(SRC)} pulp ${cmd}`
+  return `${nodePath([SRC, BUILD])} pulp ${cmd}`
 }
 
 /*
@@ -26,16 +28,16 @@ function pulp (cmd) {
  */
 
 function clean () {
-  ygor.shell('rm -r build output 2> /dev/null || true')
+  ygor.shell('rm -r build dist output 2> /dev/null || true')
 }
 
 function lint () {
-  return exec('standard src').then(result => console.log(result.stdout))
+  return exec('standard src/**/*.js,lib/**/*').then(result => console.log(result.stdout))
 }
 
 async function client () {
   await javascript()
-  ygor.shell(`${nodePath(SRC)} webpack --config=webpack.${process.env.NODE_ENV}.js --color=always --progress`)
+  ygor.shell(`${nodePath([SRC, BUILD])} webpack --config=webpack.${process.env.NODE_ENV}.js --color=always --progress`)
 }
 
 async function dev () {
@@ -56,11 +58,11 @@ async function javascriptWatch () {
 
 async function purescript () {
   await javascript()
-  ygor.shell(pulp('build -- --censor-codes=UnusedFFIImplementations'))
+  ygor.shell(pulp('build'))
 }
 
 function purescriptJson () {
-  ygor.shell(pulp('build --no-psa --json-errors -- --censor-codes=UnusedFFIImplementations'))
+  ygor.shell(pulp('build --no-psa --json-errors'))
 }
 
 function purescriptRepl () {
@@ -68,12 +70,12 @@ function purescriptRepl () {
 }
 
 function test () {
-  ygor.shell(pulp('test -- --censor-codes=UnusedFFIImplementations'))
+  ygor.shell(pulp('test'))
 }
 
 // Intended to be run with "dev" in another terminal window
 function watch () {
-  ygor.shell(`${nodePath(SRC)} pscid --test --censor-codes=UnusedFFIImplementations`)
+  ygor.shell(`${nodePath([SRC, BUILD])} pscid --test`)
 }
 
 /*

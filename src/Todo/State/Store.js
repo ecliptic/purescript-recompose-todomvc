@@ -1,4 +1,5 @@
-import {PropTypes} from 'react'
+const React = require('react')
+const PropTypes = React.PropTypes
 
 const channelPropType = PropTypes.shape({
   get: PropTypes.func.isRequired,
@@ -6,7 +7,7 @@ const channelPropType = PropTypes.shape({
   subscribe: PropTypes.func.isRequired
 }).isRequired
 
-export const storePropType = PropTypes.shape({
+exports.storePropType = PropTypes.shape({
   actionChannel: channelPropType,
   effectChannel: channelPropType,
   stateSignal: channelPropType
