@@ -17,7 +17,7 @@ import Prelude
 import Control.Monad.Eff (Eff)
 import DOM (DOM)
 import Manifold (Store, StoreEffects, runStore)
-import React.Recompose (withContext, getContext, HigherOrderComponent)
+import React.Recompose (HigherOrderComponent, mapProps, withContext, getContext)
 import Signal.Channel (CHANNEL)
 import Todo.State.Todos (Action, State, initialState, update) as Todos
 
@@ -41,9 +41,12 @@ storePropTypes = { store: storePropType }
 storeContext :: forall props ownerProps. HigherOrderComponent props ownerProps
 storeContext = getContext storePropTypes
 
+dropStoreProp :: forall props. { store :: TodoStore | props } -> props
+dropStoreProp = mapProps (_ { store = 0 })
+
 withStoreContext :: forall props. HigherOrderComponent
-  { store :: TodoStore | props } { store :: TodoStore | props }
-withStoreContext = withContext storePropTypes \p -> { store: p.store }
+  { store :: TodoStore | props } props
+withStoreContext = withContext storePropTypes \p -> { store: p.store } <<< dropStoreProp
 
 initialState :: State
 initialState = State { todos: Todos.initialState }

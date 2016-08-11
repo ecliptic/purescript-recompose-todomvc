@@ -29,7 +29,7 @@ data Action = Add String
 
 initialState :: State
 initialState = State
-  { todos: [ Todo { text: "Use Redux", id: 0, completed: false } ], lastId: 0 }
+  { todos: [ Todo { text: "Test", id: 0, completed: false } ], lastId: 0 }
 
 updateAll :: (TodoRecord -> TodoRecord) -> Todo -> Todo
 updateAll updateTodo = \(Todo todo) -> Todo $ updateTodo todo
