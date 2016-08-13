@@ -1,1 +1,1 @@
-# TodoMVC: PureScript + React + Manifold
+# [WIP] PureScript ◦ React ◦ Recompose ◦ Redux | TodoMVC
