@@ -10,7 +10,7 @@ export default function Todo ({todo}) {
           checked={todo.completed}
           onClick={(...args) => console.log('entry onClick', args)} />
         <label>
-          {todo.description}
+          {todo.text}
         </label>
       </div>
     </li>

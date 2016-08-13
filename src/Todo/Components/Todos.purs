@@ -13,4 +13,7 @@ foreign import component :: ReactClass ComponentProps
 
 todos :: ReactClass ViewProps
 todos = storeContext <<< viewModel $ component
-  where viewModel = mapProps
+  where viewModel = mapProps \props ->
+                      { allCompleted: false
+                      , todos: [ Todo
+                        { text: "Hi!", id: 0, completed: false } ] }

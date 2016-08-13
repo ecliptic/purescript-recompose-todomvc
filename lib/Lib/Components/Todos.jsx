@@ -1,5 +1,5 @@
 import React from 'react'
-import Todo from 'Lib/Components/Todos'
+import Todo from 'Lib/Components/Todo'
 
 export default function Todos ({allCompleted, todos}) {
   return (
@@ -11,7 +11,7 @@ export default function Todos ({allCompleted, todos}) {
         onClick={(...args) => console.log('toggle onClick', args)} />
       <label htmlFor="toggle-all">Mark all as complete</label>
       <ul className="todo-list">
-        {todos && todos.map(todo => <Todo todo={todo.text} key={todo.id} />)}
+        {todos && todos.map(todo => <Todo todo={todo} key={todo.id} />)}
       </ul>
     </section>
   )

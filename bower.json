@@ -12,29 +12,29 @@
     "output"
   ],
   "dependencies": {
-    "purescript-aff": "^1.0.0",
+    "purescript-aff": "^1.1.0",
     "purescript-console": "^1.0.0",
     "purescript-maybe": "^1.0.0",
-    "purescript-signal": "^6.0.0",
+    "purescript-signal": "^7.0.0",
     "purescript-foldable-traversable": "^1.0.0",
     "purescript-exceptions": "^1.0.0",
     "purescript-datetime": "^1.0.0",
     "purescript-generics": "^1.0.1",
-    "purescript-node-process": "^1.0.0",
+    "purescript-node-process": "^2.0.0",
     "purescript-express": "dancingrobot84/purescript-express#6264dd4",
     "purescript-functions": "^1.0.0",
-    "purescript-integers": "^1.0.0",
+    "purescript-integers": "^1.1.0",
     "purescript-react": "^1.1.0",
     "purescript-react-dom": "^1.0.0",
     "purescript-arrays": "^1.1.0",
-    "purescript-foreign": "^1.0.0",
+    "purescript-foreign": "^1.1.0",
     "purescript-node-path": "^1.0.0",
     "purescript-manifold": "*",
     "purescript-recompose": "*"
   },
   "devDependencies": {
     "purescript-debug": "^1.0.0",
-    "purescript-test-unit": "^7.0.0",
+    "purescript-test-unit": "^9.0.0",
     "purescript-psci-support": "^1.0.0"
   }
 }
