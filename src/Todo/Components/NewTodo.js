@@ -1,2 +1,2 @@
-const NewTodo = require('Lib/Components/NewTodo')
+const NewTodo = require('Todo/Templates/NewTodo')
 exports.component = NewTodo

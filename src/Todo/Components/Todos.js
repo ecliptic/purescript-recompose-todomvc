@@ -1,2 +1,2 @@
-const Todos = require('Lib/Components/Todos')
+const Todos = require('Todo/Templates/Todos')
 exports.component = Todos
