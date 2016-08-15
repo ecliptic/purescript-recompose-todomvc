@@ -1,4 +1,4 @@
-module Todo (init) where
+module Todo.Client (init) where
 
 import Prelude
 import Control.Monad.Eff (Eff)

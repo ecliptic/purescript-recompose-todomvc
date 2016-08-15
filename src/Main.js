@@ -1,2 +1,2 @@
-const Todo = require('Todo')
-Todo.init()
+const Client = require('Todo/Client')
+Client.init()

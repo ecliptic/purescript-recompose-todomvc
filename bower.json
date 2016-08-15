@@ -30,7 +30,9 @@
     "purescript-foreign": "^1.1.0",
     "purescript-node-path": "^1.0.0",
     "purescript-manifold": "*",
-    "purescript-recompose": "*"
+    "purescript-recompose": "*",
+    "purescript-transformers": "^1.0.0",
+    "purescript-redux-utils": "bkonkle/purescript-redux-utils#master"
   },
   "devDependencies": {
     "purescript-debug": "^1.0.0",
