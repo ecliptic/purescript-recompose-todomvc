@@ -1,20 +1,26 @@
-module Todo.Components.NewTodo ( ViewProps, ComponentProps, newTodo ) where
+module Todo.Components.NewTodo (newTodo) where
 
 import Prelude
+import Control.Monad.Eff (Eff)
 import React (ReactClass)
-import React.Recompose (withHandlers)
-import Signal.Channel (send)
-import Todo.State.Store (Action(TodosAction), EventHandler, storeContext)
-import Todo.State.Todos (Action(Add))
+import React.Recompose (EventHandler, withHandlers)
+import Todo.State.Todos (add) as Actions
+import Todo.Utils.Redux (connect)
 
-type ComponentProps = { addTodo :: EventHandler String }
-type ViewProps = {}
+type AddDispatch eff = String -> Eff eff Unit
+type Event event = { target :: { value :: String } | event}
 
-foreign import component :: ReactClass ComponentProps
+foreign import component :: forall props event eff. ReactClass
+  { addTodo :: EventHandler props event eff
+  , add :: AddDispatch eff }
 
-addTodo :: EventHandler String
-addTodo props value = send props.store.actionChannel [TodosAction (Add value)]
+addTodo :: forall props event eff.
+  EventHandler { add :: AddDispatch eff | props } (Event event) eff
+addTodo props event = props.add event.target.value
 
-newTodo :: ReactClass ViewProps
-newTodo = storeContext <<< handlers $ component
-  where handlers = withHandlers { addTodo }
+newTodo :: ReactClass {}
+newTodo = connectState <<< handlers $ component
+  where mapStateToProps = (\_ -> {})
+        actions = { add: Actions.add }
+        connectState = connect mapStateToProps actions
+        handlers = withHandlers { addTodo }

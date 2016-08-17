@@ -1,6 +1,6 @@
 import {newTodo as NewTodo} from 'Todo/Components/NewTodo.purs'
-import Controls from 'Lib/Components/Controls'
-import Footer from 'Lib/Components/Footer'
+import Controls from 'Todo/Templates/Controls'
+import Footer from 'Todo/Templates/Footer'
 import React from 'react'
 import {todos as Todos} from 'Todo/Components/Todos.purs'
 

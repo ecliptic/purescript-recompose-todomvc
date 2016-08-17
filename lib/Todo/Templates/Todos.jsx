@@ -1,5 +1,5 @@
 import React from 'react'
-import Todo from 'Lib/Components/Todo'
+import Todo from 'Todo/Templates/Todo'
 
 export default function Todos ({allCompleted, todos}) {
   return (

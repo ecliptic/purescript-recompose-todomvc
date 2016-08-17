@@ -1,7 +1,8 @@
-module Todo.Client (init) where
+module Todo.Client.Init (init) where
 
 import Prelude
 import Control.Monad.Eff (Eff)
+import DOM (DOM)
 import DOM.HTML (window)
 import DOM.HTML.Document (body)
 import DOM.HTML.Types (htmlElementToNode, htmlDocumentToDocument)
@@ -17,9 +18,10 @@ import React (ReactComponent)
 import React (createElement) as React
 import ReactDOM (render)
 import Todo.Components.App (app)
-import Todo.State.Store (TodoEffects, createStore)
+import Todo.State.Store (createStore, initialState)
+import Todo.Utils.Redux (STORE)
 
-init :: Eff TodoEffects (Maybe ReactComponent)
+init :: forall eff. Eff (dom :: DOM, store :: STORE | eff) (Maybe ReactComponent)
 init = do
   htmlDocument <- window >>= document
   htmlBody <- map (unsafePartial (fromJust <<< toMaybe)) $ body htmlDocument
@@ -32,7 +34,7 @@ init = do
   appendChild (elementToNode container) (htmlElementToNode htmlBody)
 
   -- Kick off the store
-  store <- createStore
+  store <- createStore initialState
 
   -- Create an element instance from the app component
   let element = React.createElement app { store: store } []

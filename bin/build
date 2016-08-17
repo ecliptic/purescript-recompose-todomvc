@@ -40,9 +40,7 @@ async function client () {
   ygor.shell(`${nodePath([SRC, BUILD])} webpack --config=webpack.${process.env.NODE_ENV}.js --color=always --progress`)
 }
 
-async function dev () {
-  javascriptWatch()
-  await sleep(1000)  // Give the watch command time to start up
+function dev () {
   ygor.shell(pulp(`run --main ${DEV_SERVER}`))
 }
 
@@ -53,7 +51,7 @@ async function javascript () {
 
 async function javascriptWatch () {
   await lint()
-  return exec(babel('-w')).then(result => console.log(result.stdout))
+  ygor.shell(babel('-w')).then(result => console.log(result.stdout))
 }
 
 async function purescript () {
