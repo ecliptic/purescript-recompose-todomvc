@@ -1,3 +1,3 @@
-const Init = require('Todo/Client/Init')
+const Init = require('Todo/Client/Init.purs')
 
 Init.init()

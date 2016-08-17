@@ -1,15 +1,13 @@
 module Todo.Utils.Redux
-  ( Store
-  , STORE
-  , Action
+  ( Action
   , Reducer
   , ReduxReducer
-  , StoreShape
+  , Store
+  , STORE
   , applyReducer
   , createReducer
   , createAction
   , combineReducers
-  , storeShape
   , provider
   , connect
   ) where
@@ -32,8 +30,6 @@ type Reducer action state = action -> state -> state
 newtype ReduxReducer action state =
   ReduxReducer (Fn2 (Nullable state) (Action action) state)
 
-foreign import data StoreShape :: *
-
 foreign import applyReducer :: forall action state.
   Reducer action state -> action -> state -> state
 
@@ -54,9 +50,6 @@ createAction = Action <<< { "type": _ }
 -- | Easily combine reducers using the underlying Redux utility
 foreign import combineReducers :: forall reducers action state.
   Record reducers -> ReduxReducer action state
-
--- | The PropType for a Redux store
-foreign import storeShape :: StoreShape
 
 -- | The <Provider/> component from react-redux
 foreign import provider :: ReactClass { store :: Store }
