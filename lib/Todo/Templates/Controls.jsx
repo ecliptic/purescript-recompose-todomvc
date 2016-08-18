@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default function Controls ({count}) {
+export default function Controls ({remaining, hidden, showClear}) {
+  if (hidden) return null
   return (
     <footer className="footer">
-      <span className="todo-count">{count}</span>
+      <span className="todo-count">{remaining}</span>
       <ul className="filters">
         <li>
           <a href="#/"
@@ -25,7 +26,7 @@ export default function Controls ({count}) {
           </a>
         </li>
       </ul>
-      <button className="clear-completed">Clear completed</button>
+      {showClear && <button className="clear-completed">Clear completed</button>}
     </footer>
   )
 }

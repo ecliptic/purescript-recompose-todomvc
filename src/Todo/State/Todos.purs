@@ -42,6 +42,7 @@ data Action = Add Text
   | Complete Id Boolean
   | CompleteAll
   | ClearComplete
+  | Else -- Represents external actions
 
 add :: Text -> Redux.Action Action
 add = createAction <<< Add
@@ -64,8 +65,7 @@ clearComplete = createAction ClearComplete
 -- Reducer ---------------------------------------------------------------------
 
 initialState :: State
-initialState = State
-  { todos: [ Todo { text: "Test", id: 0, completed: false } ], lastId: 0 }
+initialState = State { todos: [], lastId: 0 }
 
 updateAll :: (TodoRecord -> TodoRecord) -> Todo -> Todo
 updateAll updateTodo = \(Todo todo) -> Todo $ updateTodo todo
@@ -99,6 +99,8 @@ todosReducer CompleteAll (State state) = State $
 todosReducer ClearComplete (State state) = State $
   let clear = \(Todo todo) -> not todo.completed
   in state { todos = filter clear state.todos }
+
+todosReducer _ state = state
 
 reducer :: ReduxReducer Action State
 reducer = createReducer todosReducer initialState

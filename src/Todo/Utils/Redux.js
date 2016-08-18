@@ -4,3 +4,4 @@ exports.applyReducer = ReduxUtils.applyReducer
 exports.combineReducers = ReduxUtils.combineReducers
 exports.provider = ReduxUtils.provider
 exports.connect = ReduxUtils.connect
+exports.typeToString = ReduxUtils.typeToString

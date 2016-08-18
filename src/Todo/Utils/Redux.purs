@@ -21,7 +21,7 @@ import React (ReactClass)
 foreign import data Store :: *
 foreign import data STORE :: !
 
-newtype Action action = Action { "type" :: action }
+newtype Action action = Action { type :: String, pureType :: action }
 
 -- | The simple PureScript reducer
 type Reducer action state = action -> state -> state
@@ -40,12 +40,16 @@ createReducer :: forall action state.
 createReducer reducer initialState = ReduxReducer <<< mkFn2 $
   \state (Action action) ->
     case (toMaybe state) of
-      (Just s) -> applyReducer reducer action.type s
+      (Just s) -> applyReducer reducer action.pureType s
       otherwise -> initialState
+
+-- | Transform the action's type to a string for Redux
+foreign import typeToString :: forall action. action -> String
 
 -- | Construct a pure Redux action
 createAction :: forall action. action -> Action action
-createAction = Action <<< { "type": _ }
+createAction action = Action
+  { type: typeToString action, pureType: action }
 
 -- | Easily combine reducers using the underlying Redux utility
 foreign import combineReducers :: forall reducers action state.
