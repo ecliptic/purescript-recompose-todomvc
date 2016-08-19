@@ -4,23 +4,27 @@ import Prelude
 import Control.Monad.Eff (Eff)
 import Data.Foldable (all)
 import React (ReactClass)
-import React.Recompose (withHandlers, EventHandler)
+import React.Recompose (withHandlers)
 import Todo.State.Todos (Todo, completeAll, mapCompleted)
 import Todo.Utils.Redux (connect)
 
-foreign import component :: forall props eff.
-  ReactClass (ComponentProps props eff)
+-- View
 
-type ComponentProps props eff =
+type ViewProps props eff =
   { allCompleted :: Boolean
   , todos :: Array Todo
   , toggleCompleteAll :: HandleCompleteAll props eff }
 
-type HandleCompleteAll props eff = EventHandler
+foreign import view :: forall props eff.
+  ReactClass (ViewProps props eff)
+
+-- Props
+
+type HandleCompleteAll props eff =
   { completeAll :: Boolean -> Eff eff Unit
-  , allCompleted :: Boolean | props }
-  {}
-  eff
+  , allCompleted :: Boolean | props } ->
+  {} ->
+  Eff eff Unit
 
 toggleCompleteAll :: forall props eff. HandleCompleteAll props eff
 toggleCompleteAll props event = props.completeAll (not props.allCompleted)
@@ -31,8 +35,10 @@ mapStateToProps state =
   { allCompleted: all mapCompleted state.todos.todos
   , todos: state.todos.todos }
 
+-- Component
+
 todos :: ReactClass {}
-todos = connectState <<< handleCompleteAll $ component
+todos = connectState <<< handleCompleteAll $ view
   where actions = { completeAll: completeAll }
         connectState = connect mapStateToProps actions
         handleCompleteAll = withHandlers { toggleCompleteAll }

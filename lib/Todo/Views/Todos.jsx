@@ -1,5 +1,5 @@
 import React from 'react'
-import Todo from 'Todo/Templates/Todo'
+import Todo from 'Todo/Views/Todo'
 
 export default function Todos ({allCompleted, todos, toggleCompleteAll}) {
   return (

@@ -1,2 +1,2 @@
-const Controls = require('Todo/Templates/Controls')
-exports.component = Controls
+const Controls = require('Todo/Views/Controls')
+exports.view = Controls

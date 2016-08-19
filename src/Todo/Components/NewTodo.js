@@ -1,2 +1,2 @@
-const NewTodo = require('Todo/Templates/NewTodo')
-exports.component = NewTodo
+const NewTodo = require('Todo/Views/NewTodo')
+exports.view = NewTodo

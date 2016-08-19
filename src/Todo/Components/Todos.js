@@ -1,2 +1,2 @@
-const Todos = require('Todo/Templates/Todos')
-exports.component = Todos
+const Todos = require('Todo/Views/Todos')
+exports.view = Todos
