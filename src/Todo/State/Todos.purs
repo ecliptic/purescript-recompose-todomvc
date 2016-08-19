@@ -12,6 +12,7 @@ module Todo.State.Todos
   , edit
   , initialState
   , reducer
+  , mapCompleted
   , lengthCompleted
   ) where
 
@@ -108,6 +109,8 @@ updateWithId :: Int -> (TodoRecord -> TodoRecord) -> Todo -> Todo
 updateWithId id updateTodo = \(Todo todo) ->
   if todo.id == id then Todo (updateTodo todo) else Todo todo
 
-lengthCompleted :: forall todos.
-  Array { completed :: Boolean | todos } -> Int
-lengthCompleted todos = length $ filter _.completed todos
+mapCompleted :: Todo -> Boolean
+mapCompleted (Todo todo) = todo.completed
+
+lengthCompleted :: Array Todo -> Int
+lengthCompleted todos = length $ filter mapCompleted todos

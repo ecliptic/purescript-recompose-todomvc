@@ -1,6 +1,7 @@
 import React from 'react'
 
-export default function Controls ({remaining, hidden, showClear}) {
+export default function Controls (props) {
+  const {remaining, hidden, showClear, filterAll, filterActive, filterCompleted, clearCompleted} = props
   if (hidden) return null
   return (
     <footer className="footer">
@@ -9,24 +10,27 @@ export default function Controls ({remaining, hidden, showClear}) {
         <li>
           <a href="#/"
             className="selected"
-            onClick={(...args) => console.log('filter all', args)}>
+            onClick={filterAll}>
             All
           </a>
         </li>
         <li>
           <a href="#/active"
-            onClick={(...args) => console.log('filter active', args)}>
+            onClick={filterActive}>
             Active
           </a>
         </li>
         <li>
           <a href="#/completed"
-            onClick={(...args) => console.log('filter completed', args)}>
+            onClick={filterCompleted}>
             Completed
           </a>
         </li>
       </ul>
-      {showClear && <button className="clear-completed">Clear completed</button>}
+      {showClear && <button className="clear-completed"
+        onClick={clearCompleted}>
+        Clear completed
+      </button>}
     </footer>
   )
 }

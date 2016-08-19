@@ -5,7 +5,7 @@ import Control.Monad.Eff (Eff)
 import Data.Foldable (all)
 import React (ReactClass)
 import React.Recompose (withHandlers, EventHandler)
-import Todo.State.Todos (Todo(Todo), completeAll)
+import Todo.State.Todos (Todo, completeAll, mapCompleted)
 import Todo.Utils.Redux (connect)
 
 foreign import component :: forall props eff.
@@ -28,9 +28,8 @@ toggleCompleteAll props event = props.completeAll (not props.allCompleted)
 mapStateToProps :: { todos :: { todos :: Array Todo } } ->
   { allCompleted :: Boolean, todos :: Array Todo }
 mapStateToProps state =
-  let completed (Todo todo) = todo.completed
-  in  { allCompleted: all completed state.todos.todos
-      , todos: state.todos.todos }
+  { allCompleted: all mapCompleted state.todos.todos
+  , todos: state.todos.todos }
 
 todos :: ReactClass {}
 todos = connectState <<< handleCompleteAll $ component
