@@ -7,20 +7,17 @@ import React.Recompose (EventHandler, withHandlers)
 import Todo.State.Todos (add) as Todos
 import Todo.Utils.Redux (connect)
 
-type KeyEvent = { key :: String, target :: { value :: String } }
-
-type DispatchAdd eff = String -> Eff eff Unit
-
-foreign import component :: forall props event eff. ReactClass
-  -- The "Add" action is exposed here, and is used by addTodo below
-  { add :: DispatchAdd eff
-  -- The event handler takes care of the DOM event
-  , addTodo :: EventHandler props event eff
-  -- The nextId becomes the <input> key so that it clears on adding new items
+foreign import component :: forall props eff. ReactClass
+  { add :: String -> Eff eff Unit
+  , addTodo :: HandleAdd props eff
   , nextId :: String }
 
-addTodo :: forall props eff.
-  EventHandler { add :: DispatchAdd eff | props } KeyEvent eff
+type HandleAdd props eff = EventHandler
+  { add :: String -> Eff eff Unit | props }
+  { key :: String, target :: { value :: String } }
+  eff
+
+addTodo :: forall props eff. HandleAdd props eff
 addTodo props event = case event.key of
   "Enter" -> props.add event.target.value
   _ -> pure unit

@@ -1,9 +1,9 @@
 module Todo.State.Todos
   ( Action(..)
   , Id
-  , State
+  , State(State)
   , Text
-  , Todo
+  , Todo(Todo)
   , add
   , clearComplete
   , complete
@@ -12,12 +12,13 @@ module Todo.State.Todos
   , edit
   , initialState
   , reducer
+  , lengthCompleted
   ) where
 
 import Prelude
-import Data.Array ((:), filter)
+import Data.Array (length, (:), filter)
 import Data.Generic (class Generic, gShow)
-import Todo.Utils.Redux (Action()) as Redux
+import Todo.Utils.Redux (Action) as Redux
 import Todo.Utils.Redux (Reducer, ReduxReducer, createAction, createReducer)
 
 type TodoRecord = { text :: String, id :: Int, completed :: Boolean }
@@ -40,24 +41,24 @@ data Action = Add Text
   | Delete Id
   | Edit Id String
   | Complete Id Boolean
-  | CompleteAll
+  | CompleteAll Boolean
   | ClearComplete
   | Else -- Represents external actions
 
 add :: Text -> Redux.Action Action
-add = createAction <<< Add
+add text = createAction $ Add text
 
 delete :: Id -> Redux.Action Action
-delete = createAction <<< Delete
+delete id = createAction $ Delete id
 
 edit :: Id -> String -> Redux.Action Action
-edit = (createAction <<< _) <<< Edit
+edit id text = createAction $ Edit id text
 
 complete :: Id -> Boolean -> Redux.Action Action
-complete = (createAction <<< _) <<< Complete
+complete id isCompleted = createAction $ Complete id isCompleted
 
-completeAll :: Redux.Action Action
-completeAll = createAction CompleteAll
+completeAll :: Boolean -> Redux.Action Action
+completeAll isCompleted = createAction $ CompleteAll isCompleted
 
 clearComplete :: Redux.Action Action
 clearComplete = createAction ClearComplete
@@ -66,13 +67,6 @@ clearComplete = createAction ClearComplete
 
 initialState :: State
 initialState = State { todos: [], lastId: 0 }
-
-updateAll :: (TodoRecord -> TodoRecord) -> Todo -> Todo
-updateAll updateTodo = \(Todo todo) -> Todo $ updateTodo todo
-
-updateWithId :: Int -> (TodoRecord -> TodoRecord) -> Todo -> Todo
-updateWithId id updateTodo = \(Todo todo) ->
-  if todo.id == id then Todo (updateTodo todo) else Todo todo
 
 todosReducer :: Reducer Action State
 todosReducer (Add text) (State state) = State $
@@ -92,8 +86,8 @@ todosReducer (Complete id isComplete) (State state) = State $
   let updateTodo = \todo -> todo { completed = isComplete }
   in state { todos = updateWithId id updateTodo <$> state.todos }
 
-todosReducer CompleteAll (State state) = State $
-  let updateTodo = \todo -> todo { completed = true }
+todosReducer (CompleteAll isCompleted) (State state) = State $
+  let updateTodo = \todo -> todo { completed = isCompleted }
   in state { todos = updateAll updateTodo <$> state.todos }
 
 todosReducer ClearComplete (State state) = State $
@@ -104,3 +98,16 @@ todosReducer _ state = state
 
 reducer :: ReduxReducer Action State
 reducer = createReducer todosReducer initialState
+
+-- Utils -----------------------------------------------------------------------
+
+updateAll :: (TodoRecord -> TodoRecord) -> Todo -> Todo
+updateAll updateTodo = \(Todo todo) -> Todo $ updateTodo todo
+
+updateWithId :: Int -> (TodoRecord -> TodoRecord) -> Todo -> Todo
+updateWithId id updateTodo = \(Todo todo) ->
+  if todo.id == id then Todo (updateTodo todo) else Todo todo
+
+lengthCompleted :: forall todos.
+  Array { completed :: Boolean | todos } -> Int
+lengthCompleted todos = length $ filter _.completed todos

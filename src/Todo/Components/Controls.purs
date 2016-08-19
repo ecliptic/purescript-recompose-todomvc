@@ -1,9 +1,10 @@
 module Todo.Components.Controls (controls) where
 
 import Prelude
-import Data.Array (filter, length)
+import Data.Array (length)
 import React (ReactClass)
 import React.Recompose (mapProps)
+import Todo.State.Todos (lengthCompleted)
 import Todo.Utils.Redux (connect)
 
 foreign import component :: ReactClass
@@ -16,7 +17,7 @@ controls = connectState <<< controlProps $ component
         connectState = connect mapStateToProps dispatchActions
         controlProps = mapProps \props ->
           let count = length props.todos
-              completed = length $ filter _.completed props.todos
+              completed = lengthCompleted props.todos
               remaining = count - completed
               label = if remaining == 1 then " item left" else " items left"
               showClear = completed > 0
