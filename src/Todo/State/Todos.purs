@@ -3,6 +3,7 @@ module Todo.State.Todos
   , Id
   , State(State)
   , Text
+  , TodoRecord
   , Todo(Todo)
   , add
   , clearComplete
@@ -19,12 +20,21 @@ module Todo.State.Todos
 import Prelude
 import Data.Array (length, (:), filter)
 import Data.Generic (class Generic, gShow)
+import Debug.Trace (traceAny)
 import Todo.Utils.Redux (Action) as Redux
 import Todo.Utils.Redux (Reducer, ReduxReducer, createAction, createReducer)
 
-type TodoRecord = { text :: String, id :: Int, completed :: Boolean }
+type TodoRecord =
+  { text :: String
+  , id :: Int
+  , completed :: Boolean
+  , isEditing :: Boolean }
 
-newtype Todo = Todo { text :: String, id :: Int, completed :: Boolean }
+newtype Todo = Todo
+  { text :: String
+  , id :: Int
+  , completed :: Boolean
+  , isEditing :: Boolean }
 derive instance eqTodo :: Eq Todo
 derive instance genericTodo :: Generic Todo
 
@@ -40,7 +50,8 @@ type Id = Int
 
 data Action = Add Text
   | Delete Id
-  | Edit Id String
+  | Edit Id
+  | Update Id String
   | Complete Id Boolean
   | CompleteAll Boolean
   | ClearComplete
@@ -52,11 +63,14 @@ add text = createAction $ Add text
 delete :: Id -> Redux.Action Action
 delete id = createAction $ Delete id
 
-edit :: Id -> String -> Redux.Action Action
-edit id text = createAction $ Edit id text
+edit :: Id -> Redux.Action Action
+edit id = createAction $ Edit id
+
+update :: Id -> String -> Redux.Action Action
+update id text = createAction $ Update id text
 
 complete :: Id -> Boolean -> Redux.Action Action
-complete id isCompleted = createAction $ Complete id isCompleted
+complete id isCompleted = createAction $ Complete (traceAny id \_ -> id) isCompleted
 
 completeAll :: Boolean -> Redux.Action Action
 completeAll isCompleted = createAction $ CompleteAll isCompleted
@@ -72,27 +86,32 @@ initialState = State { todos: [], lastId: 0 }
 todosReducer :: Reducer Action State
 todosReducer (Add text) (State state) = State $
   let id = state.lastId + 1
-  in state { todos = Todo { text, id, completed: false } : state.todos
+      todo = { text, id, completed: false, isEditing: false }
+  in state { todos = Todo todo : state.todos
            , lastId = id }
 
 todosReducer (Delete id) (State state) = State $
-  let del = \(Todo todo) -> todo.id /= id
+  let del (Todo todo) = todo.id /= id
   in state { todos = filter del state.todos }
 
-todosReducer (Edit id text) (State state) = State $
-  let updateTodo = \todo -> todo { text = text }
+todosReducer (Edit id) (State state) = State $
+  let editTodo todo = todo { isEditing = true }
+  in state { todos = updateWithId id editTodo <$> state.todos }
+
+todosReducer (Update id text) (State state) = State $
+  let updateTodo todo = todo { text = text, isEditing = false }
   in state { todos = updateWithId id updateTodo <$> state.todos }
 
 todosReducer (Complete id isComplete) (State state) = State $
-  let updateTodo = \todo -> todo { completed = isComplete }
+  let updateTodo todo = todo { completed = isComplete }
   in state { todos = updateWithId id updateTodo <$> state.todos }
 
 todosReducer (CompleteAll isCompleted) (State state) = State $
-  let updateTodo = \todo -> todo { completed = isCompleted }
+  let updateTodo todo = todo { completed = isCompleted }
   in state { todos = updateAll updateTodo <$> state.todos }
 
 todosReducer ClearComplete (State state) = State $
-  let clear = \(Todo todo) -> not todo.completed
+  let clear (Todo todo) = not todo.completed
   in state { todos = filter clear state.todos }
 
 todosReducer _ state = state

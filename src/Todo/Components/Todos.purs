@@ -15,16 +15,16 @@ type ViewProps props eff =
   , todos :: Array Todo
   , toggleCompleteAll :: HandleCompleteAll props eff }
 
-foreign import view :: forall props eff.
-  ReactClass (ViewProps props eff)
-
--- Props
-
 type HandleCompleteAll props eff =
   { completeAll :: Boolean -> Eff eff Unit
   , allCompleted :: Boolean | props } ->
   {} ->
   Eff eff Unit
+
+foreign import view :: forall props eff.
+  ReactClass (ViewProps props eff)
+
+-- Props
 
 toggleCompleteAll :: forall props eff. HandleCompleteAll props eff
 toggleCompleteAll props event = props.completeAll (not props.allCompleted)
@@ -39,6 +39,5 @@ mapStateToProps state =
 
 todos :: ReactClass {}
 todos = connectState <<< handleCompleteAll $ view
-  where actions = { completeAll: completeAll }
-        connectState = connect mapStateToProps actions
+  where connectState = connect mapStateToProps $ { completeAll: completeAll }
         handleCompleteAll = withHandlers { toggleCompleteAll }
