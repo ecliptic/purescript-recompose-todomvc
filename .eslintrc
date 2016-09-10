@@ -1,0 +1,12 @@
+{
+  "extends": ["standard", "standard-react"],
+  "parser": "babel-eslint",
+  "rules": {
+    "jsx-quotes": ["error", "prefer-double"],
+    "comma-dangle": ["error", "always-multiline"],
+    "react/prop-types": 0,
+  },
+  "globals": {
+    "__PREFIX_LINKS__": true
+  }
+}

@@ -9,8 +9,7 @@ export default function NewTodo ({addTodo, nextId}) {
         placeholder="What needs to be done?"
         autoFocus
         name="newTodo"
-        onKeyPress={addTodo}>
-      </input>
+        onKeyPress={addTodo} />
     </header>
   )
 }

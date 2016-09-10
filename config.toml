@@ -1,0 +1,3 @@
+title = "TodoMVC"
+description = "PureScript <<< React <<< Recompose <<< Redux $ TodoMVC"
+linkPrefix = "/purescript-recompose-todomvc"

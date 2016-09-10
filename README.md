@@ -1,1 +1,1 @@
-# PureScript <<< React <<< Recompose <<< Redux $ TodoMVC
+# WIP: PureScript <<< React <<< Recompose <<< Redux $ TodoMVC

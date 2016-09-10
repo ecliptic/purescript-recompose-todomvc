@@ -35,12 +35,15 @@ bower_components
 
 # Build outut
 .pulp-cache
-output/
-build/
-dist/
+/output
+/build
+/public
 
 # PureScript REPL
 /.psci*
 
 # PureScript IDE
 /.psc-ide*
+
+# Gatsby
+.gatsby-context.js

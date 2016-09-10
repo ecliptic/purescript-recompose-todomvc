@@ -1,7 +1,7 @@
-var ReduxUtils = require('Todo/Utils/ReduxUtils')
+var ReduxFF = require('Todo/Utils/ReduxFF')
 
-exports.applyReducer = ReduxUtils.applyReducer
-exports.combineReducers = ReduxUtils.combineReducers
-exports.provider = ReduxUtils.provider
-exports.connect = ReduxUtils.connect
-exports.typeToString = ReduxUtils.typeToString
+exports.applyReducer = ReduxFF.applyReducer
+exports.combineReducers = ReduxFF.combineReducers
+exports.provider = ReduxFF.provider
+exports.connect = ReduxFF.connect
+exports.typeToString = ReduxFF.typeToString

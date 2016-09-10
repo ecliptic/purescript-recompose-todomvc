@@ -20,7 +20,6 @@
     "purescript-datetime": "^1.0.0",
     "purescript-generics": "^1.0.1",
     "purescript-node-process": "^2.0.0",
-    "purescript-express": "dancingrobot84/purescript-express#6264dd4",
     "purescript-functions": "^1.0.0",
     "purescript-integers": "^1.1.0",
     "purescript-react": "^1.1.0",
