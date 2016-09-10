@@ -20,10 +20,6 @@ type ViewProps eff =
   , filterActive :: FilterHandler eff
   , filterCompleted :: FilterHandler eff }
 
-type FilterHandler eff =
-  { setFilter :: (Todo -> Boolean) -> Eff (dom :: DOM | eff) Unit } ->
-  Event -> Eff (dom :: DOM | eff) Unit
-
 foreign import view :: forall eff. ReactClass (ViewProps eff)
 
 -- Props
@@ -58,6 +54,10 @@ active (Todo todo) = not todo.completed
 
 completed :: Todo -> Boolean
 completed (Todo todo) = todo.completed
+
+type FilterHandler eff =
+  { setFilter :: (Todo -> Boolean) -> Eff (dom :: DOM | eff) Unit } ->
+  Event -> Eff (dom :: DOM | eff) Unit
 
 filterAction :: forall eff. (Todo -> Boolean) -> FilterHandler eff
 filterAction filterBy props event = do

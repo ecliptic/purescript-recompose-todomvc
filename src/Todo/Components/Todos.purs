@@ -2,6 +2,7 @@ module Todo.Components.Todos (todos) where
 
 import Prelude
 import Control.Monad.Eff (Eff)
+import Data.Array (null)
 import Data.Foldable (all)
 import React (ReactClass)
 import React.Recompose (withHandlers)
@@ -30,10 +31,11 @@ toggleCompleteAll :: forall props eff. HandleCompleteAll props eff
 toggleCompleteAll props event = props.completeAll (not props.allCompleted)
 
 mapStateToProps :: { todos :: { todos :: Array Todo } } ->
-  { allCompleted :: Boolean, todos :: Array Todo }
+  { allCompleted :: Boolean, todos :: Array Todo, empty :: Boolean }
 mapStateToProps state =
   { allCompleted: all mapCompleted state.todos.todos
-  , todos: state.todos.todos }
+  , todos: state.todos.todos
+  , empty: null state.todos.todos }
 
 -- Component
 
