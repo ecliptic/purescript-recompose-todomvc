@@ -11,10 +11,6 @@ const DEV_SERVER = 'Todo.Server.Development'
 
 const nodePath = prepend => `NODE_PATH=${prepend.join(':')}:${process.env.NODE_PATH || ''}`
 
-function sleep (ms) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
-
 function babel (options = '') {
   return `babel ${LIB} --source-maps --out-dir ${BUILD} ${options}`
 }
@@ -32,7 +28,9 @@ function clean () {
 }
 
 function lint () {
-  return exec('standard src/**/*.js,lib/**/*').then(result => console.log(result.stdout))
+  return exec('standard src/**/*.js,lib/**/*', {capture: ['stdout', 'stderr']})
+    .then(result => console.log(result.stdout))
+    .catch(error => console.error(error.stderr))
 }
 
 async function client () {
