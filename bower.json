@@ -27,7 +27,7 @@
     "purescript-arrays": "^1.1.0",
     "purescript-foreign": "^1.1.0",
     "purescript-node-path": "^1.0.0",
-    "purescript-recompose": "*",
+    "purescript-recompose": "^1.0.0",
     "purescript-transformers": "^1.0.0"
   },
   "devDependencies": {
