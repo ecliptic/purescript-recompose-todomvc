@@ -1,4 +1,4 @@
-import {createStore} from 'Todo/State/Init'
+import {createStore} from 'Todo/State/Create'
 import {initialState} from 'Todo/State/Store'
 import {Provider} from 'react-redux'
 import {safeStringify} from 'Todo/Utils/String'
@@ -12,7 +12,7 @@ export default class Base extends Component {
 
   constructor (...args) {
     super(...args)
-    if (window && window.__INITIAL_STATE__) {
+    if (typeof window === 'object' && window.__INITIAL_STATE__) {
       // If we're resuming in the browser, use the initial state attached to the
       // window.
       this.store = createStore(JSON.parse(window.__INITIAL_STATE__))()

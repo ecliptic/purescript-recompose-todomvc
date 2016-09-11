@@ -14,11 +14,11 @@ export default class Todo extends Component {
             checked={todo.completed}
             onClick={toggle} />
           <label onDoubleClick={editTodo}>
-            {todo.text}
+            {todo.title}
           </label>
         </div>
         <input className="edit"
-          defaultValue={todo.text}
+          defaultValue={todo.title}
           name="title"
           id={`todo-${todo.id}`}
           onBlur={updateTodo}

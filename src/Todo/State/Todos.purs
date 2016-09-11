@@ -27,13 +27,13 @@ import Todo.Utils.Redux (Action) as Redux
 import Todo.Utils.Redux (Reducer, ReduxReducer, createAction, createReducer)
 
 type TodoRecord =
-  { text :: String
+  { title :: String
   , id :: Int
   , completed :: Boolean
   , editing :: Boolean }
 
 newtype Todo = Todo
-  { text :: String
+  { title :: String
   , id :: Int
   , completed :: Boolean
   , editing :: Boolean }
@@ -60,7 +60,7 @@ data Action = Add Text
   | Else -- Represents external actions
 
 add :: Text -> Redux.Action Action
-add text = createAction $ Add text
+add title = createAction $ Add title
 
 delete :: Id -> Redux.Action Action
 delete id = createAction $ Delete id
@@ -70,7 +70,7 @@ edit id = createAction $ Edit id
 
 update :: Fn2 Id String (Redux.Action Action)
 update = mkFn2 action
-  where action id text = createAction $ Update id text
+  where action id title = createAction $ Update id title
 
 complete :: Fn2 Id Boolean (Redux.Action Action)
 complete = mkFn2 action
@@ -90,9 +90,9 @@ initialState :: State
 initialState = State { todos: [], lastId: 0 }
 
 todosReducer :: Reducer Action State
-todosReducer (Add text) (State state) = State $
+todosReducer (Add title) (State state) = State $
   let id = state.lastId + 1
-      todo = { text, id, completed: false, editing: false }
+      todo = { title, id, completed: false, editing: false }
   in state { todos = Todo todo : state.todos
            , lastId = id }
 
@@ -104,8 +104,8 @@ todosReducer (Edit id) (State state) = State $
   let editTodo todo = todo { editing = true }
   in state { todos = updateWithId id editTodo <$> state.todos }
 
-todosReducer (Update id text) (State state) = State $
-  let updateTodo todo = todo { text = text, editing = false }
+todosReducer (Update id title) (State state) = State $
+  let updateTodo todo = todo { title = title, editing = false }
   in state { todos = updateWithId id updateTodo <$> state.todos }
 
 todosReducer (Complete id isComplete) (State state) = State $
