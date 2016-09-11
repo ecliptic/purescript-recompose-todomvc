@@ -2,7 +2,7 @@ module Todo.State.Todos
   ( Action(..)
   , Id
   , State(State)
-  , Text
+  , Title
   , TodoRecord
   , Todo(Todo)
   , add
@@ -11,11 +11,11 @@ module Todo.State.Todos
   , completeAll
   , delete
   , edit
+  , update
   , initialState
   , reducer
   , mapCompleted
   , lengthCompleted
-  , update
   ) where
 
 import Prelude
@@ -23,8 +23,8 @@ import Data.Array (length, (:), filter)
 import Data.Function.Uncurried (mkFn0, Fn0, mkFn2, Fn2)
 import Data.Generic (class Generic, gShow)
 import Debug.Trace (traceAny)
-import Todo.Utils.Redux (Action) as Redux
-import Todo.Utils.Redux (Reducer, ReduxReducer, createAction, createReducer)
+import Redux.Mini (Action) as Redux
+import Redux.Mini (Reducer, ReduxReducer, createAction, createReducer)
 
 type TodoRecord =
   { title :: String
@@ -47,10 +47,10 @@ instance showState :: Show State where show = gShow
 
 -- Actions ---------------------------------------------------------------------
 
-type Text = String
+type Title = String
 type Id = Int
 
-data Action = Add Text
+data Action = Add Title
   | Delete Id
   | Edit Id
   | Update Id String
@@ -59,7 +59,7 @@ data Action = Add Text
   | ClearComplete
   | Else -- Represents external actions
 
-add :: Text -> Redux.Action Action
+add :: Title -> Redux.Action Action
 add title = createAction $ Add title
 
 delete :: Id -> Redux.Action Action

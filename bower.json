@@ -28,7 +28,8 @@
     "purescript-foreign": "^1.1.0",
     "purescript-node-path": "^1.0.0",
     "purescript-recompose": "^1.0.0",
-    "purescript-transformers": "^1.0.0"
+    "purescript-transformers": "^1.0.0",
+    "purescript-mini-redux": "^1.0.2"
   },
   "devDependencies": {
     "purescript-debug": "^1.0.0",

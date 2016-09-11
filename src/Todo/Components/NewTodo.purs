@@ -5,7 +5,7 @@ import Control.Monad.Eff (Eff)
 import React (ReactClass)
 import React.Recompose (withHandlers)
 import Todo.State.Todos (add) as Todos
-import Todo.Utils.Redux (connect)
+import Redux.Mini (connect)
 
 -- View
 

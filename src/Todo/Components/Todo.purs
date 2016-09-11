@@ -6,7 +6,7 @@ import Data.Function.Uncurried (Fn2, runFn2)
 import React (ReactClass)
 import React.Recompose (withHandlers)
 import Todo.State.Todos (Id, TodoRecord, complete, edit, update)
-import Todo.Utils.Redux (connect)
+import Redux.Mini (connect)
 
 -- View
 

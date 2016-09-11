@@ -7,7 +7,7 @@ import Data.Foldable (all)
 import React (ReactClass)
 import React.Recompose (withHandlers)
 import Todo.State.Todos (Todo, completeAll, mapCompleted)
-import Todo.Utils.Redux (connect)
+import Redux.Mini (connect)
 
 -- View
 

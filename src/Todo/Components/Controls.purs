@@ -2,13 +2,13 @@ module Todo.Components.Controls (controls) where
 
 import Prelude
 import Control.Monad.Eff (Eff)
+import Data.Array (length)
 import DOM (DOM)
 import DOM.Event.Event (preventDefault, Event)
-import Data.Array (length)
 import React (ReactClass)
 import React.Recompose (mapProps, withHandlers, withState')
+import Redux.Mini (connect)
 import Todo.State.Todos (Todo(Todo), lengthCompleted)
-import Todo.Utils.Redux (connect)
 
 -- View
 
