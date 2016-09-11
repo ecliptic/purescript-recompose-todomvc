@@ -12,7 +12,7 @@ export default class Todo extends Component {
           <input className="toggle"
             type="checkbox"
             checked={todo.completed}
-            onClick={toggle} />
+            onChange={toggle} />
           <label onDoubleClick={editTodo}>
             {todo.title}
           </label>

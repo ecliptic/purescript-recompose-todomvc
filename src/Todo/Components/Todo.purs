@@ -21,11 +21,11 @@ foreign import view :: forall props eff. ReactClass (ViewProps props eff)
 -- Props
 
 type HandleToggle props eff =
-  { complete :: Id -> Boolean -> Eff eff Unit, todo :: TodoRecord | props } ->
+  { complete :: Fn2 Id Boolean (Eff eff Unit), todo :: TodoRecord | props } ->
   {} -> Eff eff Unit
 
 toggle :: forall props eff. HandleToggle props eff
-toggle props event = props.complete props.todo.id completed
+toggle props event = runFn2 props.complete props.todo.id completed
   where completed = not props.todo.completed
 
 type HandleEdit props eff =

@@ -22,7 +22,6 @@ import Prelude
 import Data.Array (length, (:), filter)
 import Data.Function.Uncurried (mkFn0, Fn0, mkFn2, Fn2)
 import Data.Generic (class Generic, gShow)
-import Debug.Trace (traceAny)
 import Redux.Mini (Action) as Redux
 import Redux.Mini (Reducer, ReduxReducer, createAction, createReducer)
 
@@ -74,8 +73,7 @@ update = mkFn2 action
 
 complete :: Fn2 Id Boolean (Redux.Action Action)
 complete = mkFn2 action
-  where action id isCompleted = createAction $
-          Complete (traceAny id \_ -> id) isCompleted
+  where action id isCompleted = createAction $ Complete id isCompleted
 
 completeAll :: Boolean -> Redux.Action Action
 completeAll isCompleted = createAction $ CompleteAll isCompleted

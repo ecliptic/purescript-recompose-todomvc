@@ -10,7 +10,7 @@ export default class Todos extends Component {
           type="checkbox"
           name="toggle"
           checked={allCompleted}
-          onClick={toggleCompleteAll} />}
+          onChange={toggleCompleteAll} />}
         <label htmlFor="toggle-all">Mark all as complete</label>
         <ul className="todo-list">
           {todos && todos.map(todo => <Todo todo={todo} key={todo.id} />)}
