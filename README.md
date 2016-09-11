@@ -1,6 +1,6 @@
 # TodoMVC <<< React <<< Redux <<< Recompose $ PureScript
 
-[![build status](https://img.shields.io/travis/bkonkle/purescript-recompose-todomvc/master.svg?style=flat-square)](https://travis-ci.org/bkonkle/purescript-recompose-todomvc)
+[![build status](https://img.shields.io/travis/ecliptic/purescript-recompose-todomvc/master.svg?style=flat-square)](https://travis-ci.org/ecliptic/purescript-recompose-todomvc)
 [![recompose channel on discord](https://img.shields.io/badge/discord-%23redux%20%40%20reactiflux-61dafb.svg?style=flat-square)](https://discord.gg/2PCKqHc)
 
 This is an implementation of [TodoMVC](http://todomvc.com/) using the following tools:
@@ -15,7 +15,7 @@ This is an implementation of [TodoMVC](http://todomvc.com/) using the following 
 
 ## Try it live!
 
-### [Online Demo](https://bkonkle.github.io/purescript-recompose-todomvc/)
+### [Online Demo](https://ecliptic.github.io/purescript-recompose-todomvc/)
 
 The production build is currently deployed via Github Pages. 😎
 
