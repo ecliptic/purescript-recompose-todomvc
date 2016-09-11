@@ -1,16 +1,16 @@
 import * as Redux from 'redux'
 import persistState from 'redux-localstorage'
 
-const devToolsEnhancer = (typeof window === 'object' && typeof window.devToolsExtension !== 'undefined')
-  ? window.devToolsExtension()
-  : id => id
+function devToolsEnhancer () {
+  if (typeof window === 'object' && typeof window.devToolsExtension !== 'undefined') {
+    return window.devToolsExtension()
+  }
+  return id => id
+}
 
-export const createStore = initialState => () => {
-  // Import this inside the function to avoid a circular dependency
-  const rootReducer = require('Todo/State/Store.purs').rootReducer
-
-  const enhancers = [
-    persistState(undefined, {
+function persistStateEnhancer () {
+  if (typeof window === 'object') {
+    return persistState(undefined, {
       key: 'todos-purescript-recompose',
       slicer: paths => state => {
         // Censor the 'editing' state
@@ -19,9 +19,15 @@ export const createStore = initialState => () => {
         })
         return state
       },
-    }),
-    devToolsEnhancer,
-  ]
+    })
+  }
+  return id => id
+}
+
+export const createStore = initialState => () => {
+  // Import this inside the function to avoid a circular dependency
+  const rootReducer = require('Todo/State/Store.purs').rootReducer
+  let enhancers = [persistStateEnhancer(), devToolsEnhancer()]
 
   const store = Redux.createStore(
     rootReducer,

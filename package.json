@@ -9,7 +9,7 @@
     "lint": "eslint --ext .js,.jsx src",
     "prepublish": "npm run build",
     "start": "npm run lint && gatsby develop",
-    "upload": "surge public ecliptic.github.io",
+    "upload": "gh-pages -d public",
     "postinstall": "bower install"
   },
   "repository": {
@@ -55,6 +55,7 @@
     "eslint-plugin-standard": "^2.0.0",
     "file-loader": "^0.9.0",
     "gatsby": "^0.12.0",
+    "gh-pages": "^0.11.0",
     "image-webpack-loader": "^2.0.0",
     "json-loader": "^0.5.4",
     "node-sass": "^3.9.3",
@@ -70,7 +71,6 @@
     "sass-loader": "^4.0.2",
     "standard": "^8.0.0-beta.3",
     "style-loader": "^0.13.1",
-    "surge": "^0.18.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2"
   }
