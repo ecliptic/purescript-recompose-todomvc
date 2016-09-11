@@ -1,7 +1,7 @@
 {
   "name": "purescript-recompose-todomvc",
   "version": "1.0.0",
-  "description": "PureScript <<< React <<< Recompose <<< Redux $ TodoMVC",
+  "description": "TodoMVC <<< React <<< Recompose <<< Redux $ PureScript",
   "scripts": {
     "build": "npm run lint && gatsby build --prefix-links",
     "clean": "if [ -d public ]; then rm -r public; fi",

@@ -1,7 +1,7 @@
 {
   "name": "purescript-manifold-todomvc",
   "version": "1.0.0",
-  "description": "TodoMVC: PureScript + React + Manifold",
+  "description": "TodoMVC <<< React <<< Recompose <<< Redux $ PureScript",
   "moduleType": [
     "node"
   ],
