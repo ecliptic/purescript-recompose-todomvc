@@ -10,9 +10,9 @@ This is an implementation of the TodoMVC application using the following tools:
  - [Babel](http://babeljs.io/)
  - [Webpack](https://webpack.github.io/)
 
-## Try it live!
+## [Try it live!](https://bkonkle.github.io/purescript-recompose-todomvc/)
 
-Coming soon…
+The production build is currently deployed via Github Pages. ❤️
 
 ## Why the heck did you …?
 
