@@ -9,6 +9,8 @@ This is an implementation of [TodoMVC](http://todomvc.com/) using the following 
  - [React](https://facebook.github.io/react/)
  - [Redux](http://redux.js.org/)
  - [Recompose](https://github.com/acdlite/recompose)
+ - [purescript-recompose](https://github.com/ecliptic/purescript-recompose)
+ - [purescript-mini-redux](https://github.com/ecliptic/purescript-mini-redux)
  - [Gatsby](https://github.com/gatsbyjs/gatsby)
  - [Babel](http://babeljs.io/)
  - [Webpack](https://webpack.github.io/)
