@@ -13,11 +13,11 @@ This is an implementation of [TodoMVC](http://todomvc.com/) using the following 
  - [Babel](http://babeljs.io/)
  - [Webpack](https://webpack.github.io/)
 
-## [Try it live!](https://bkonkle.github.io/purescript-recompose-todomvc/)
+## Try it live!
 
-The production build is
-[currently deployed](https://bkonkle.github.io/purescript-recompose-todomvc/)
-via Github Pages. ❤️
+### [Online Demo](https://bkonkle.github.io/purescript-recompose-todomvc/)
+
+The production build is currently deployed via Github Pages. 😎
 
 ## Why the heck did you …?
 
