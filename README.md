@@ -37,9 +37,7 @@ Gatsby is ostensibly a static site generator based on React and Webpack, but it 
 
 ### Not use `purescript-redux`?
 
-I wanted to use Redux in a way that is more idiomatic to ML-style languages like PureScript. For example, I wanted to use algebraic data types to represent action types. I decided to take some influence from `purescript-redux-utils` and use the ADT constructor names to automatically derive the string for Redux’s “type” attribute on actions.
-
-The Redux helper used in this project will be open sourced as a separate module shortly.
+I wanted to use Redux in a way that is more idiomatic to ML-style languages like PureScript. For example, I wanted to use algebraic data types to represent action types. I decided to take some influence from `purescript-redux-utils` and use the ADT constructor names to automatically derive the string for Redux’s “type” attribute on actions. This is why I created [purescript-mini-redux](https://github.com/ecliptic/purescript-mini-redux).
 
 ### Separate PureScript “Components” from JSX “Views”?
 
