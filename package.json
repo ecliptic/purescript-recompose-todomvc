@@ -3,7 +3,8 @@
   "version": "1.1.0",
   "description": "TodoMVC <<< React <<< Recompose <<< Redux $ PureScript",
   "scripts": {
-    "dev": "cross-env HOT=1 NODE_ENV=development node --max_old_space_size=2096 -r babel-register bin/dev-server.js"
+    "dev": "cross-env HOT=1 NODE_ENV=development node --max_old_space_size=2096 -r babel-register bin/dev-server.js",
+    "build": "cross-env NODE_ENV=production node --max_old_space_size=2096 -r babel-register node_modules/.bin/webpack --config config/webpack-build.js"
   },
   "repository": {
     "type": "git",

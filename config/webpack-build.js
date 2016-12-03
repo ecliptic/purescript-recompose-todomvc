@@ -8,7 +8,7 @@ config.merge({
   debug: false,
   profile: false,
   devtool: 'cheap-module-source-map',
-  entry: ['./src/Components/Index.js'],
+  entry: ['./src/Todo/Views/Index.jsx'],
   output: {publicPath: '../public/'},
 })
 
@@ -24,10 +24,11 @@ config.plugin('html', HtmlWebpackPlugin, [{
 }])
 config.plugin('occurrence-order', Webpack.optimize.OccurrenceOrderPlugin)
 config.plugin('minify', Webpack.optimize.UglifyJsPlugin, [{
-  compressor: {
+  compress: {
     screw_ie8: true,
     warnings: false,
   },
+  comments: false,
 }])
 config.plugin('extract-styles', ExtractTextPlugin, [
   'style.css',
