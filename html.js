@@ -1,3 +1,3 @@
 // Required for Gatsby
-import Html from 'Todo/Views/Html'
+import Html from '../Views/Html'
 export default Html

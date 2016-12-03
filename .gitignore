@@ -44,6 +44,3 @@ bower_components
 
 # PureScript IDE
 /.psc-ide*
-
-# Gatsby
-.gatsby-context.js

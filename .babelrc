@@ -1,8 +1,16 @@
 {
-  "presets": ["es2015-loose", "react"],
+  "presets": [["es2015", {"loose": true}], "react"],
   "plugins": [
     "add-module-exports",
     "transform-class-properties",
     "transform-object-rest-spread"
-  ]
+  ],
+  "env": {
+    "development": {
+      "presets": ["react-hmre"]
+    },
+    "production": {
+      "presets": ["react-optimize"]
+    }
+  }
 }

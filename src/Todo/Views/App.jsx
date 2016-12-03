@@ -1,8 +1,8 @@
-import {newTodo as NewTodo} from 'Todo/Components/NewTodo.purs'
-import {controls as Controls} from 'Todo/Components/Controls.purs'
-import Footer from 'Todo/Views/Footer'
+import {controls as Controls} from '../Components/Controls.purs'
+import {newTodo as NewTodo} from '../Components/NewTodo.purs'
+import {todos as Todos} from '../Components/Todos.purs'
+import Footer from '../Views/Footer'
 import React, {Component} from 'react'
-import {todos as Todos} from 'Todo/Components/Todos.purs'
 
 import 'todomvc-common/base.css'
 import 'todomvc-app-css/index.css'

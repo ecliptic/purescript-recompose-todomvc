@@ -1,2 +1,2 @@
-const Controls = require('Todo/Views/Controls')
+const Controls = require('../Views/Controls')
 exports.view = Controls

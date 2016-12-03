@@ -1,4 +1,4 @@
-import {rootReducer} from 'Todo/State/Store'
+import {rootReducer} from '../State/Store'
 import * as Redux from 'redux'
 import persistState from 'redux-localstorage'
 
@@ -25,7 +25,7 @@ function persistStateEnhancer () {
   return id => id
 }
 
-export const createStore = initialState => () => {
+export const createStore = initialState => {
   const enhancers = [persistStateEnhancer(), devToolsEnhancer()]
 
   const store = Redux.createStore(

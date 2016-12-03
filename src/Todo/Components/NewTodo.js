@@ -1,2 +1,2 @@
-const NewTodo = require('Todo/Views/NewTodo')
+const NewTodo = require('../Views/NewTodo')
 exports.view = NewTodo

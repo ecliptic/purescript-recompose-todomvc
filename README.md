@@ -11,7 +11,6 @@ This is an implementation of [TodoMVC](http://todomvc.com/) using the following 
  - [Recompose](https://github.com/acdlite/recompose)
  - [purescript-recompose](https://github.com/ecliptic/purescript-recompose)
  - [purescript-mini-redux](https://github.com/ecliptic/purescript-mini-redux)
- - [Gatsby](https://github.com/gatsbyjs/gatsby)
  - [Babel](http://babeljs.io/)
  - [Webpack](https://webpack.github.io/)
 
@@ -30,10 +29,6 @@ Front end development can be a stressful activity fraught with inscrutable bugs,
 ### …use Recompose?
 
 Recompose is an extremely powerful functional toolkit for working with React components that makes heavy use of higher-order components. This makes it easier to work with React in a functional, composable way.
-
-### …use Gatsby?
-
-Gatsby is ostensibly a static site generator based on React and Webpack, but it also provides easy extension points that you can use to turn it into a universal application platform for many use cases. I extend it in `gatsby-node.js` to add PureScript support.
 
 ### …not use `purescript-redux`?
 

@@ -1,4 +1,4 @@
-import {todo as Todo} from 'Todo/Components/Todo.purs'
+import {todo as Todo} from '../Components/Todo.purs'
 import React, {Component} from 'react'
 
 export default class Todos extends Component {
