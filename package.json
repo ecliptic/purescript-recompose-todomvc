@@ -4,7 +4,8 @@
   "description": "TodoMVC <<< React <<< Recompose <<< Redux $ PureScript",
   "scripts": {
     "dev": "cross-env HOT=1 NODE_ENV=development node --max_old_space_size=2096 -r babel-register bin/dev-server.js",
-    "build": "cross-env NODE_ENV=production node --max_old_space_size=2096 -r babel-register node_modules/.bin/webpack --config config/webpack-build.js"
+    "build": "cross-env NODE_ENV=production node --max_old_space_size=2096 -r babel-register node_modules/.bin/webpack --config config/webpack-build.js",
+    "test": "pulp test"
   },
   "repository": {
     "type": "git",
@@ -12,9 +13,6 @@
   },
   "author": "Brandon Konkle <brandon@ecliptic.io>",
   "license": "MIT",
-  "standard": {
-    "parser": "babel-eslint"
-  },
   "dependencies": {
     "classnames": "^2.2.5",
     "react": "^15.4.1",

@@ -5,7 +5,7 @@ export default class Controls extends Component {
     const {remaining, hidden, showClear, filterAll, filterActive, filterCompleted, clearCompleted} = this.props
     if (hidden) return null
     return (
-      <footer className="footer">
+      <footer id="footer">
         <span className="todo-count">{remaining}</span>
         <ul className="filters">
           <li>

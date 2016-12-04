@@ -1,14 +1,11 @@
 language: node_js
-node_js: 6
-install: npm install -g yarn && yarn
-script:
- - npm run build
+before_install: npm install -g yarn bower
+install: yarn && bower install
+script: npm run build && npm test
 before_cache: npm prune
 branches:
   only:
     - master
-# force container based infra
-# http://docs.travis-ci.com/user/workers/container-based-infrastructure/#Routing-your-build-to-container-based-infrastructure
 sudo: false
 cache:
   directories:

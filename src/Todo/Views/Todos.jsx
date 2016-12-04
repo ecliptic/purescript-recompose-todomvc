@@ -4,13 +4,17 @@ import React, {Component} from 'react'
 export default class Todos extends Component {
   render () {
     const {allCompleted, todos, empty, toggleCompleteAll} = this.props
+
+    // Hide this section entirely if there are no todos
+    if (empty) return null
+
     return (
-      <section className="main">
-        {!empty && <input className="toggle-all"
+      <section id="main">
+        <input className="toggle-all"
           type="checkbox"
           name="toggle"
           checked={allCompleted}
-          onChange={toggleCompleteAll} />}
+          onChange={toggleCompleteAll} />
         <label htmlFor="toggle-all">Mark all as complete</label>
         <ul className="todo-list">
           {todos && todos.map(todo => <Todo todo={todo} key={todo.id} />)}

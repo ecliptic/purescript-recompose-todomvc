@@ -9,7 +9,6 @@ config.merge({
   profile: false,
   devtool: 'cheap-module-source-map',
   entry: ['./src/Todo/Views/Index.jsx'],
-  output: {publicPath: '../public/'},
 })
 
 config.loader('css', {
